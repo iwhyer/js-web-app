@@ -1,11 +1,313 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Study Note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="./javascripts/vue.min.js"></script>
+  <script src="./javascripts/index.js"></script>
+  <script src="./javascripts/jquery-3.2.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">共同成长队</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#heart-words">心里话<span class="sr-only">(current)</span></a></li>
+            <li><a href="#about-me">关于小组</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://js.xinshengdaxue.com">新大JS</a></li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <div class="bs-docs-header">
+      <div class="container">
+        <h1>JavaScript学习</h1>
+        <p>学习中犯过的错、踩过得坑，把它们都记录下来，让自己的成长有迹可循。世上没有白走的路，每一步，都算数。</p>
+        </n>
+        <p>遇到困难别害怕，当你打败它的之后，你离高手又近了一步！</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-md-4">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">课程信息</h3>
+          </div>
+          <div class="panel-body">
+            <h4>{{ courseInfo.title }}</h4>
+            <p>讲师: <span>{{ courseInfo.teacher }}</span></p>
+            <div class="item">
+              <img class="img-circle" v-bind:src="courseInfo.teacherAvatar" style="width: 120px;"></img>
+            </div>
+            <p class="subtitle"></p>
+            <nav id="main-nav">
+
+            </nav>
+            <nav id="sub-nav">
+              <div class="social">
+                <a class="github" href="https://github.com/xugy0926" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <div class="panel panel-default" id="about-me">
+          <div class="panel-heading">
+            <h3 class="panel-title">小组成员</h3>
+          </div>
+          <div class="panel-body">
+            <div class="item">
+              <img class="img-circle" src="https://s3.amazonaws.com/logdown-production/system/blog/21331/og_image/WechatIMG40.png" alt="Profile Picture" style="width: 120px;">
+            </div>
+            <h3><a href="https://github.com/antarts"> Antarts</a></h3>
+            <p class="subtitle"></p>
+            <nav id="main-nav">
+              <section class="aboutme">
+                <p>一个以成长为刚需的普通人</p>
+              </section>
+            </nav>
+            <nav id="sub-nav">
+              <div class="social">
+                <a class="github" href="https://github.com/antarts" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">课程项目</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item">
+              <a href="https://xugy0926.github.io/getting-started-with-javascript/">
+                <i class="fa fa-github" aria-hidden="true"></i> getting-started-with-javascript
+            </a>
+            </li>
+            <li class="list-group-item">
+              <a href="https://github.com/xugy0926/words-from-the-heart">
+                <i class="fa fa-github" aria-hidden="true"></i> words-from-the-heart
+            </a>
+            </li>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">GIT & GITHUB</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in gitTopics">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">PPT</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in ppt">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">课程的技术文档</h3>
+          </div>
+          <div class="panel-body">
+            <li class="list-group-item" v-for="item in topics">
+              <a :href="item.url">{{ item.title }}</a>
+            </li>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-8">
+        <div class="panel panel-default" id="wordsToTeacher">
+          <div class="panel-heading">
+            <h3 class="panel-title">有话对老师说</h3>
+          </div>
+          <div class="panel-body">
+            <div class="media">
+              <p>姓名:</p>
+              <input v-model="myName" placeholder="填写真实姓名">
+            </div>
+            <div class="media">
+              <p>验证:(提示：新生大学注册用的手机号或邮箱)</p>
+              <input v-model="myAccount" placeholder="输入手机号或邮箱">
+            </div>
+            <div class="media">
+              <span>对老师说的话:</span>
+              <br>
+              <textarea v-model="myContent" placeholder="支持Markdown格式..."></textarea>
+            </div>
+            <div>
+              <button v-on:click="submitData">提交</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default" id="heart-words">
+          <div class="panel-heading">
+            <h3 class="panel-title">学习心愿</h3>
+          </div>
+          <div class="panel-body">
+            <div class="words-pannel" v-for="item in wordsList">
+
+              <div class="item active">
+                <blockquote>
+                  <div class="row">
+                    <div class="col-sm-3 text-center">
+                      <img class="img-circle" v-bind:src="item.avatar" alt="..." style="width: 125px; height: 125px;">
+                    </div>
+                    <div class="col-sm-9">
+                      <p>{{ item.words }}</p>
+                      <small>{{ item.name }}</small>
+                    </div>
+                  </div>
+                </blockquote>
+              </div>
+              <hr>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <hr>
+      <div class="col-lg-12">
+        <div class="col-md-8">
+          <a href="https://github.com/antarts/Study_Note"><i class="fa fa-github fa-2x"></i></a>
+        </div>
+        <div class="col-md-4">
+          <p class="muted pull-right">© 2017 Growth. All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // vue官网： https://cn.vuejs.org/v2/guide/
+  // 初始化Vue
+  var app = new Vue({
+    el: '#app',   // #app 和html中div#id的 app 对应
+    data: {
+      // wordsList: wordsList // 变量wordsList可以在html使用
+      wordsList: [],
+      gitTopics: [],
+      ppt: [],
+      topics: [],
+      courseInfo: {},
+      myName: '',
+      myAccount: '',
+      myContent: ''
+    },
+    methods: {
+      //   getInfo() {
+      //     var that = this;
+      //     $.getJSON("public/all_words.json", function(data) {
+      //       that.wordsList = data;
+      //       })
+      //   }
+      fetchData: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/words')
+          .then(function (response) {
+            app.wordsList = response.data.words;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      sendData: function () {
+        var vm = this;
+        axios.post('https://js.xinshengdaxue.com/api/v1/learnJS/sayToMe',
+          {
+            name: app.myName,
+            account: app.myAccount,
+            content: app.myContent
+          })
+          .then(function (response) {
+            if (response.status === 200 ) {
+              app.myName = response.data.name;
+              app.myAccount = response.data.account;
+              app.myContent = response.data.content;
+              alert('send successed!');
+              vm.myName = '';
+              vm.myAccount = '';
+              vm.myContent = '';
+            }
+            console.log(response);
+          })
+          .caatch(function (error) {
+            console.log(error);
+          })
+      },
+      submitData: function () {
+        app.sendData();
+      },
+      getTopics: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/catelog')
+        .then(function (response) {
+          app.gitTopics = response.data.catelog.gitTopicsList;
+          app.ppt = response.data.catelog.pptList;
+          app.topics = response.data.catelog.topicsList;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+      getCourseInfo: function () {
+        axios.get('https://js.xinshengdaxue.com/api/v1/learnJS/course/1/detail')
+        .then(function (response) {
+          app.courseInfo = response.data.courseInfo;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    }
+  });
+  // app.getInfo();
+  app.fetchData();
+  app.getTopics();
+  app.getCourseInfo();
+
+</script>
+
 </html>
